@@ -4,7 +4,7 @@ _Experiment with the new Google Slides API. It will scan your presentation and c
 
 ## Setup
 
-People wishing to use this project will first need to follow [the instructions](https://developers.google.com/api-client-library/php/auth/web-app#top_of_page) to enable OAuth 2.0 access.
+People wishing to use this project will first need to follow the instructions to [get the Google Slides API working with PHP](https://developers.google.com/slides/quickstart/php) and then to [enable OAuth 2.0 access for web apps](https://developers.google.com/api-client-library/php/auth/web-app#top_of_page).
 
 After downloading the client_secret.json file from the Credentials wizard, move the file into the project and rename it client_secret2.json. From here, move the project into Apache or Nginx's document root.
 
