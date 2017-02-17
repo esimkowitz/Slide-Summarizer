@@ -13,7 +13,7 @@ After downloading the client_secret.json file from the Credentials wizard, move 
 To utilize the summarizer, turn on your web server and navigate to the webpage in your browser of choice. The URL should be formatted as follows:
 
 ```
-http://localhost:8888/Slide-Summarizer/slide_reader.php?<presentationId>
+http://localhost:8888/Slide-Summarizer/slide_reader.php?presentationId=<presentationId>
 ```
 
 Where presentationId is the id of whichever Google Slides presentation you would like to summarize.
