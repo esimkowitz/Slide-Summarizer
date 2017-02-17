@@ -77,7 +77,8 @@ $service = new Google_Service_Slides($client);
 
 // Prints the number of slides and elements in a sample presentation:
 // https://docs.google.com/presentation/d/1iDrIm6uNWIrThzIxglIO2-rbnB11qWTt41LBgic9glQ/edit
-$presentationId = '1iDrIm6uNWIrThzIxglIO2-rbnB11qWTt41LBgic9glQ';
+// $presentationId = '1iDrIm6uNWIrThzIxglIO2-rbnB11qWTt41LBgic9glQ';
+$presentationId = $argv[1];
 $presentation = $service->presentations->get($presentationId);
 $slides = $presentation->getSlides();
 $last_unique_title = "";
