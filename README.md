@@ -10,8 +10,6 @@ People wishing to use this project will first need to follow [the instructions](
 
 Currently, to run the project, change the Presentation ID in the quickstart.php file to the one desired and run the following command from the project directory:
 
-'''
-
+```
 php quickstart.php
-
-'''
+```
