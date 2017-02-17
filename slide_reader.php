@@ -5,39 +5,21 @@ $client = new Google_Client();
 $client->setAuthConfig('client_secret2.json');
 $client->addScope(Google_Service_Slides::PRESENTATIONS_READONLY);
 $service;
+$presentationId = "";
+if (!empty($_GET['presentationId'])) {
+  $presentationId = $_GET['presentationId'];
+  $_SESSION['presentationId'] = $presentationId;
+}
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
   $service = new Google_Service_Slides($client);
   $client->setAccessType("offline");
-
+  if (!empty($_SESSION['presentationId'])) {
+    $presentationId = $_SESSION['presentationId'];
+  }
 } else {
   $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/Slide-Summarizer/oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-}?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Slide Reader</title>
-	<meta charset="utf-8" author="Evan Simkowitz">
-</head>
-<body>
-  <?php
-/**
- * Expands the home directory alias '~' to the full path.
- * @param string $path the path to expand.
- * @return string the expanded path.
- */
-function expandHomeDirectory($path) {
-  $homeDirectory = getenv('HOME');
-  if (empty($homeDirectory)) {
-    $homeDirectory = getenv('HOMEDRIVE') . getenv('HOMEPATH');
-  }
-  return str_replace('~', realpath($homeDirectory), $path);
-}
-
-$presentationId = "";
-if (!empty($_GET['presentationId'])) {
-	$presentationId = $_GET['presentationId'];
 }
 $presentation = $service->presentations->get($presentationId);
 $slides = $presentation->getSlides();
@@ -57,6 +39,14 @@ foreach ($slides as $slide) {
   }
 }
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Summarizer</title>
+	<meta charset="utf-8" author="Evan Simkowitz">
+</head>
+<body>
+<h1><?php echo $presentation->title; ?></h1>
 <ul id="bookmark_list">
 	<?php foreach ($bookmarks as $bookmark): ?>
 		<li>
