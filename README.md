@@ -4,8 +4,6 @@ _Experiment with the new Google Slides API. It will scan your presentation and c
 
 ## Setup
 
-People wishing to use this project will first need to follow the instructions to [get the Google Slides API working with PHP](https://developers.google.com/slides/quickstart/php) and then to [enable OAuth 2.0 access for web apps](https://developers.google.com/api-client-library/php/auth/web-app#top_of_page).
-
 ### Installing Composer
 The first step to setting up this project is to install the Composer package manager for PHP. This can be done using the following script:
 ```
@@ -15,17 +13,24 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 ```
 ### Get Credentials for OAuth 2.0 Login
-
-
+Use the following [tutorial](https://developers.google.com/api-client-library/php/auth/web-app#top_of_page) to enable OAuth 2.0 for web applications.
 
 After downloading the client_secret.json file from the Credentials wizard, move the file into the project and rename it client_secret2.json. From here, move the project into Apache or Nginx's document root.
+
+### Install the Google Client Library
+Run the following command to install the library using composer:
+
+'''
+php composer.phar require google/apiclient-services:dev-master
+php composer.phar require google/apiclient:^2.0
+'''
 
 ## Usage
 
 To utilize the summarizer, turn on your web server and navigate to the webpage in your browser of choice. The URL should be formatted as follows:
 
 ```
-http://localhost:8888/Slide-Summarizer/slide_reader.php?presentationId=<presentationId>
+http://localhost/Slide-Summarizer/slide_reader.php?presentationId=<presentationId>
 ```
 
 Where presentationId is the id of whichever Google Slides presentation you would like to summarize.
