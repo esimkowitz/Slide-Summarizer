@@ -19,11 +19,10 @@ After downloading the client_secret.json file from the Credentials wizard, move 
 
 ### Install the Google Client Library
 Run the following command to install the library using composer:
-
-'''
+```
 php composer.phar require google/apiclient-services:dev-master
 php composer.phar require google/apiclient:^2.0
-'''
+```
 
 ## Usage
 
