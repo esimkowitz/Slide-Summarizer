@@ -4,7 +4,7 @@ require_once __DIR__.'/vendor/autoload.php';
 session_start();
 
 $client = new Google_Client();
-$client->setAuthConfigFile('client_secret2.json');
+$client->setAuthConfigFile('client_secret.json');
 $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/Slide-Summarizer/oauth2callback.php');
 $client->addScope(Google_Service_Slides::PRESENTATIONS_READONLY);
 

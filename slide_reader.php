@@ -2,7 +2,7 @@
 require_once __DIR__.'/vendor/autoload.php';
 session_start(); 
 $client = new Google_Client();
-$client->setAuthConfig('client_secret2.json');
+$client->setAuthConfig('client_secret.json');
 $client->addScope(Google_Service_Slides::PRESENTATIONS_READONLY);
 $service;
 $presentationId = "";
@@ -17,6 +17,7 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   if (!empty($_SESSION['presentationId'])) {
     $presentationId = $_SESSION['presentationId'];
   }
+  // session_destroy();
 } else {
   $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/Slide-Summarizer/oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
@@ -59,7 +60,7 @@ foreach ($slides as $slide) {
   document.getElementById("bookmark_list").addEventListener('click', doSomething, false);
   function doSomething(e) {
     e.preventDefault();
-    if (e.target !== e.currentTarget) {
+    if (e.target !== e.currentTarget && e.target.id) {
       var clickedItem = e.target.id;
       console.log(clickedItem);
       document.getElementById("slide_frame").src = "https://docs.google.com/presentation/d/<?php echo $presentationId?>/embed?start=false&loop=false&delayms=3000&slide=id." + clickedItem;
