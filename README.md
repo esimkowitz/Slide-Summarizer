@@ -6,6 +6,18 @@ _Experiment with the new Google Slides API. It will scan your presentation and c
 
 People wishing to use this project will first need to follow the instructions to [get the Google Slides API working with PHP](https://developers.google.com/slides/quickstart/php) and then to [enable OAuth 2.0 access for web apps](https://developers.google.com/api-client-library/php/auth/web-app#top_of_page).
 
+### Installing Composer
+The first step to setting up this project is to install the Composer package manager for PHP. This can be done using the following script:
+```
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '55d6ead61b29c7bdee5cccfb50076874187bd9f21f65d8991d46ec5cc90518f447387fb9f76ebae1fbbacf329e583e30') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
+### Get Credentials for OAuth 2.0 Login
+
+
+
 After downloading the client_secret.json file from the Credentials wizard, move the file into the project and rename it client_secret2.json. From here, move the project into Apache or Nginx's document root.
 
 ## Usage
