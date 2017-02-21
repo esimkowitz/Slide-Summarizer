@@ -17,10 +17,23 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   if (!empty($_SESSION['presentationId'])) {
     $presentationId = $_SESSION['presentationId'];
   }
-  // session_destroy();
 } else {
   $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/Slide-Summarizer/oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Summarizer</title>
+	<meta charset="utf-8" author="Evan Simkowitz">
+</head>
+<body>
+<?php
+if ($presentationId === "") {
+  printf("Invalid presentationId\n");
+  exit(1);
 }
 $presentation = $service->presentations->get($presentationId);
 $slides = $presentation->getSlides();
@@ -30,30 +43,25 @@ foreach ($slides as $slide) {
   $page_elements = $slide->getPageElements();
   foreach ($page_elements as $page_element) {
     if ($page_element->shape->shapeType === "TEXT_BOX") {
-      $text_elements = $page_element->shape->text->textElements;
-      if ($text_elements[1]->textRun->content !== $last_unique_title) {
-        array_push($bookmarks, [$text_elements[1]->textRun->content, $slide->objectId]);
-        $last_unique_title = $text_elements[1]->textRun->content;
+      if (is_object($page_element->shape->text)) {
+        $text_elements = $page_element->shape->text->textElements;
+        if ($text_elements[1]->textRun->content !== $last_unique_title) {
+          array_push($bookmarks, [$text_elements[1]->textRun->content, $slide->objectId]);
+          $last_unique_title = $text_elements[1]->textRun->content;
+        }
       }
       break;
     }
   }
-}
+} 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Slide Summarizer</title>
-	<meta charset="utf-8" author="Evan Simkowitz">
-</head>
-<body>
-<h1><?php echo $presentation->title; ?></h1>
-<ul id="bookmark_list">
-	<?php foreach ($bookmarks as $bookmark): ?>
-		<li>
-			<a href="#" id="<?php echo $bookmark[1]; ?>"><?php echo $bookmark[0] ?></a>
-		</li>
-	<?php endforeach; ?>
+  <h1><?php echo $presentation->title; ?></h1>
+  <ul id="bookmark_list">
+   <?php foreach ($bookmarks as $bookmark): ?>
+    <li>
+     <a href="#" id="<?php echo $bookmark[1]; ?>"><?php echo $bookmark[0] ?></a>
+   </li>
+ <?php endforeach; ?>
 </ul>
 <iframe id="slide_frame" src="https://docs.google.com/presentation/d/<?php echo $presentationId?>/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 <script type="text/javascript" charset="utf-8">
