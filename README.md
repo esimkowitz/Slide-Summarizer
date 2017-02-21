@@ -34,6 +34,6 @@ To utilize the summarizer, turn on your web server and navigate to the webpage i
 http://localhost/Slide-Summarizer/slide_reader.php?presentationId=<presentationId>
 ```
 
-Where presentationId is the id of whichever Google Slides presentation you would like to summarize.
+Where ```<presentationId>``` is the id of whichever Google Slides presentation you would like to summarize.
 
 The program will dynamically produce a list of all the unique slide titles in the presentation. Clicking on any of these titles will change the iframe's position to the corresponding slide.
