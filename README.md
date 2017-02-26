@@ -15,9 +15,9 @@ php -r "unlink('composer-setup.php');"
 ### Get Credentials for OAuth 2.0 Login
 Use the following [tutorial](https://developers.google.com/api-client-library/php/auth/web-app#creatingcred) to enable OAuth 2.0 for web applications.
 
-The necessary code framework to use the OAuth client is already included in the program, all that you need to add is the ```client_secret.json``` file obtained by following the instructions in the "Creating web application credentials" section.
+The necessary code framework to use the OAuth client is already included in the program, all that you need to add is the `client_secret.json` file obtained by following the instructions in the "Creating web application credentials" section.
 
-After downloading the ```client_secret.json``` file from the Credentials wizard, move the file into the project or properly adjust the file path to it in the ```oauth2callback.php``` and ```slide_reader.php``` files. From here, move the project into Apache or Nginx's document root.
+After downloading the `client_secret.json` file from the Credentials wizard, move the file into the project or properly adjust the file path to it in the `oauth2callback.php` and `slide_reader.php` files. From here, move the project into Apache or Nginx's document root.
 
 ### Install the Google Client Library
 Run the following command to install the library using composer:
@@ -34,6 +34,6 @@ To utilize the summarizer, turn on your web server and navigate to the webpage i
 http://localhost/Slide-Summarizer/slide_reader.php?presentationId=<presentationId>
 ```
 
-Where ```<presentationId>``` is the id of whichever Google Slides presentation you would like to summarize.
+Where `<presentationId>` is the id of whichever Google Slides presentation you would like to summarize.
 
 The program will dynamically produce a list of all the unique slide titles in the presentation. Clicking on any of these titles will change the iframe's position to the corresponding slide.
