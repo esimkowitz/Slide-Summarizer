@@ -4,7 +4,8 @@ session_start();
 $service;
 $isLoggedIn = false;
 $client = new Google_Client();
-$client->setAuthConfigFile('client_secret.json');
+define('CLIENT_SECRET_PATH', __DIR__ . '/../client_secret.json');
+$client->setAuthConfigFile(CLIENT_SECRET_PATH);
 $client->setAccessType("offline");
 $client->setIncludeGrantedScopes(true);   // incremental auth
 $client->addScope(Google_Service_Slides::PRESENTATIONS_READONLY);
@@ -12,6 +13,7 @@ $presentationId = "";
 if (!empty($_GET['presentationId'])) {
   $presentationId = $_GET['presentationId'];
   $_SESSION['presentationId'] = $presentationId;
+  $_SESSION['requester'] = "slide_reader";
 }
 if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
   $client->setAccessToken($_SESSION['access_token']);
@@ -26,6 +28,7 @@ if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
 	<meta charset="utf-8" author="Evan Simkowitz">
 </head>
 <body>
+  <a href="index.php"><div id="return_link">Return to list of presentations</div></a>
   <?php if ($isLoggedIn && $presentationId !== ""): ?>
   <?php
   $presentation = $service->presentations->get($presentationId);
