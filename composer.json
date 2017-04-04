@@ -1,6 +1,7 @@
 {
     "require": {
         "google/apiclient-services": "dev-master",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "tedivm/stash": "^0.14.1"
     }
 }

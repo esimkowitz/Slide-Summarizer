@@ -11,6 +11,8 @@ $client->setAccessType("offline");
 $client->setIncludeGrantedScopes(true);   // incremental auth
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 $client->addScope(Google_Service_Slides::PRESENTATIONS_READONLY);
+$cache = new Stash\Pool(new Stash\Driver\FileSystem(array()));
+$client->setCache($cache);
 $_SESSION['requester'] = "index";
 unset($_SESSION['presentationId']);
 if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
@@ -52,7 +54,7 @@ if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
     <ul id="file_list">
         <?php foreach ($files as $file): ?>
         <li>
-            <a href="slide_reader.php?presentationId=<?php echo $file->id; ?>" id="<?php echo $file->id; ?>"><?php echo $file->name; ?></a>
+            <a href="slide_reader.php?presentationId=<?php echo urlencode($file->id); ?>" id="<?php echo $file->id; ?>"><?php echo $file->name; ?></a>
         </li>
         <?php endforeach; ?>
     </ul>

@@ -1,0 +1,23 @@
+#bookmark_list {
+    vertical-align: top;
+    display: inline-block;
+    margin-right: 20px;
+    padding-top: 6em;
+}
+#slide_frame {
+    height: 100%;
+    width: 100%;
+}
+#header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    padding: 0.5em 0 0 0.5em;
+    background: white;
+}
+#slide_frame_div {
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    padding-top: 7em;
+}
