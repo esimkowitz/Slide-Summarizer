@@ -1,28 +1,39 @@
 <?php 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
+require 'templates/base.php';
 session_start();
 ini_set('memory_limit', '500M');
-$service;
-$isLoggedIn = false;
+// putenv('GOOGLE_APPLICATION_CREDENTIALS='.CLIENT_SECRET_PATH);
 $client = new Google_Client();
-define('CLIENT_SECRET_PATH', __DIR__ . '/../client_secret.json');
-$client->setAuthConfigFile(CLIENT_SECRET_PATH);
-$client->setAccessType("offline");
-$client->setIncludeGrantedScopes(true);   // incremental auth
-$client->addScope(Google_Service_Slides::PRESENTATIONS_READONLY);
-$cache = new Stash\Pool(new Stash\Driver\FileSystem(array()));
-$client->setCache($cache);
+/************************************************
+  ATTENTION: Fill in these values, or make sure you
+  have set the GOOGLE_APPLICATION_CREDENTIALS
+  environment variable. You can get these credentials
+  by creating a new Service Account in the
+  API console. Be sure to store the key file
+  somewhere you can get to it - though in real
+  operations you'd want to make sure it wasn't
+  accessible from the webserver!
+  Make sure the Books API is enabled on this
+  account as well, or the call will fail.
+ ************************************************/
+if ($credentials_file = checkServiceAccountCredentialsFile()) {
+  // set the location manually
+  $client->setAuthConfig($credentials_file);
+} elseif (getenv('GOOGLE_APPLICATION_CREDENTIALS')) {
+  // use the application default credentials
+  $client->useApplicationDefaultCredentials();
+} else {
+  echo missingServiceAccountDetailsWarning();
+  return;
+}
+$client->setApplicationName("Slide-Summarizer");
+$client->addScope(Google_Service_Drive::DRIVE_READONLY);
 $presentationId = "";
 if (!empty($_GET['presentationId'])) {
   $presentationId = $_GET['presentationId'];
-  $_SESSION['presentationId'] = $presentationId;
-  $_SESSION['requester'] = "slide_reader";
 }
-if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
-  $client->setAccessToken($_SESSION['access_token']);
-  $service = new Google_Service_Slides($client);
-  $isLoggedIn = true;
-}
+$service = new Google_Service_Slides($client);
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,10 +49,13 @@ if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
 <body>
   <div id="header">
   <a href="index.php"><div id="return_link">Return to list of presentations</div></a>
-  <?php if ($isLoggedIn && $presentationId !== ""): ?>
+  <?php if ($presentationId !== ""): ?>
   <?php
   if (is_object($service->presentations)) {
-    $presentation = $service->presentations->get($presentationId);
+    $presentation = $service->presentations->get($presentationId, (array(
+            'presentationId' => $presentationId,
+            'fields' => 'slides(pageElements(shape(text(textElements(textRun(content))))),objectId),title',
+        )));
     $slides = $presentation->getSlides();
     $last_unique_title = "";
     $bookmarks = [];
@@ -50,19 +64,17 @@ if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
       foreach ($page_elements as $page_element) {
         if (is_object($page_element)) {
           if (is_object($page_element->shape)) {
-            if ($page_element->shape->shapeType === "TEXT_BOX") {
-              if (is_object($page_element->shape->text)) {
-                $text_elements = $page_element->shape->text->textElements;
-                if (count($text_elements) > 1) {
-                  if (is_object($text_elements[1]->textRun)) {
-                    if ($text_elements[1]->textRun->content !== $last_unique_title) {
-                      array_push($bookmarks, [$text_elements[1]->textRun->content, $slide->objectId]);
-                      $last_unique_title = $text_elements[1]->textRun->content;
-                    }
+            if (is_object($page_element->shape->text)) {
+              $text_elements = $page_element->shape->text->textElements;
+              if (count($text_elements) > 1) {
+                if (is_object($text_elements[1]->textRun)) {
+                  if ($text_elements[1]->textRun->content !== $last_unique_title) {
+                    array_push($bookmarks, [$text_elements[1]->textRun->content, $slide->objectId]);
+                    $last_unique_title = $text_elements[1]->textRun->content;
                   }
                 }
               }
-            }
+            }            
             break;
           }
         }
@@ -126,10 +138,6 @@ if (isset($_SESSION['access_token']) && !empty($_SESSION['access_token'])) {
     // Resize the iframes when the window is resized
     $( window ).resize(resizeIframe).resize();
   </script>
-  <?php elseif (!$isLoggedIn): ?>
-    <h3>Please click below to login with Google</h3>
-    <a href="login_redirect.php"><input type="button" name="Login" value="Login"></a>
-    </div>
   <?php else: ?>
     <h3>Invalid presentationId</h3>
     </div>
