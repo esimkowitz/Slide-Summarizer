@@ -1,6 +1,6 @@
 {
-  "name": "Start on Heroku: PHP",
-  "description": "A barebones PHP app that makes use of the Silex web framework",
-  "repository": "https://github.com/heroku/php-getting-started",
+  "name": "Slide-Summarizer",
+  "description": "Experiment with the new Google Slides API. It will scan your presentation and create a bookmark to slides where the title has changed.",
+  "repository": "https://github.com/esimkowitz/Slide-Summarizer",
   "addons": []
 }
