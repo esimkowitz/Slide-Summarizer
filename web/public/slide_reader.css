@@ -12,12 +12,14 @@
     position: fixed;
     width: 100%;
     top: 0;
+    z-index: 2;
     padding: 0.5em 0 0 0.5em;
     background: white;
 }
 #slide_frame_div {
     position: fixed;
     display: inline-block;
+    z-index: 1;
     width: 100%;
     padding-top: 7em;
 }
