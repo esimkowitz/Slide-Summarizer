@@ -68,7 +68,8 @@ if ($presentationId !== "") {
     <title><?php echo $presentationTitle; ?></title>
 	<meta charset="utf-8" author="Evan Simkowitz">
     <meta name="description" content="Summarizes long Google Slides presentations into a list of bookmarks."/>
-    <link rel="stylesheet" href=<?php echo "https://" . $_SERVER['SERVER_NAME']."/css/slide_reader.css"; ?>>
+    <link rel="stylesheet" href="<?php echo "https://" . $_SERVER['SERVER_NAME']; ?>/slide_reader.css">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo "https://" . $_SERVER['SERVER_NAME']; ?>/favicon.ico" />
     <script
         src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="

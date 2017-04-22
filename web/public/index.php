@@ -18,13 +18,20 @@ $router->map( 'GET', '/presentation/[:id]', function( $id ) {
 }, 'presentation');
 
 // map to css files
-$router->map( 'GET', '/css/[:filename].css', function($filename) {
+$router->map( 'GET', '/[:filename].css', function($filename) {
     header("Content-Type: text/css");
-    $file_path = __DIR__."/views"."/".$filename.".css";
+    $file_path = __DIR__."/css"."/".$filename.".css";
     if (file_exists($file_path)) {
         include $file_path;
     }
 }, 'css');
+$router->map( 'GET', '/[:filename].ico', function($filename) {
+    header("Content-Type: image/x-icon");
+    $file_path = __DIR__."/pictures"."/".$filename.".ico";
+    if (file_exists($file_path)) {
+        include $file_path;
+    }
+}, 'ico');
 $match = $router->match();
 // echo var_dump($match);
 // call closure or throw 404 status

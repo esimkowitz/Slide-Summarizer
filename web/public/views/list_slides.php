@@ -41,6 +41,7 @@ $service = new Google_Service_Drive($client);
 	<title>Slide Summarizer</title>
 	<meta charset="utf-8" author="Evan Simkowitz">
     <meta name="description" content="Summarizes long Google Slides presentations into a list of bookmarks."/>
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo "https://" . $_SERVER['SERVER_NAME']; ?>/favicon.ico" />
     <script type="text/javascript">
         function createKeenWebAutoCollector(){window.keenWebAutoCollector=window.KeenWebAutoCollector.create({projectId:'58ee6df995cfc9addc24722c',writeKey:'1A9D2151FAA1AD8B57043FC1FEB63D159114B6C842FBF03D70DDD75AF73BFFA6687611B30B1148561B472583FA7576F359F2C81EF4B6CF67E73F892BD45B02C5D15C2CDC1AF734FDC75EB737B0E38080FB0FC21D4B9CDB27E3AC2CF3F04B4C79',onloadCallbacks:window.keenWebAutoCollector.onloadCallbacks}),window.keenWebAutoCollector.loaded()}function initKeenWebAutoCollector(){window.keenWebAutoCollector.domReady()?window.createKeenWebAutoCollector():document.addEventListener("readystatechange",function(){window.keenWebAutoCollector.domReady()&&window.createKeenWebAutoCollector()})}window.keenWebAutoCollector={onloadCallbacks:[],onload:function(a){this.onloadCallbacks.push(a)},domReady:function(){return["ready","complete"].indexOf(document.readyState)>-1}};
     </script>
