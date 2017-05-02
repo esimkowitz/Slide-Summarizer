@@ -21,11 +21,7 @@ Make sure the Books API is enabled on this
 account as well, or the call will fail.
 ************************************************/
 
-if ($credentials_file = checkServiceAccountCredentialsFile()) {
-    // 	set the location manually
-    $client->setAuthConfig($credentials_file);
-}
-elseif (getenv('GOOGLE_APPLICATION_CREDENTIALS')) {
+if (getenv('GOOGLE_APPLICATION_CREDENTIALS')) {
     // 	use the application default credentials
     $client->useApplicationDefaultCredentials();
 }
@@ -68,31 +64,6 @@ if ($presentationId !== "") {
     <link rel="stylesheet" href="https://<?php echo(urlencode($_SERVER['SERVER_NAME']));?>/slide_reader.css">
     <link rel="shortcut icon" type="image/x-icon" href="https://<?php echo(urlencode($_SERVER['SERVER_NAME']));?>/favicon.ico" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      function createKeenWebAutoCollector() {
-        window.keenWebAutoCollector = window.KeenWebAutoCollector.create({
-          projectId: '58ee6df995cfc9addc24722c',
-          writeKey: '1A9D2151FAA1AD8B57043FC1FEB63D159114B6C842FBF03D70DDD75AF73BFFA6687611B30B1148561B472583FA7576F359F2C81EF4B6CF67E73F892BD45B02C5D15C2CDC1AF734FDC75EB737B0E38080FB0FC21D4B9CDB27E3AC2CF3F04B4C79',
-          onloadCallbacks: window.keenWebAutoCollector.onloadCallbacks
-        }), window.keenWebAutoCollector.loaded()
-      }
-
-      function initKeenWebAutoCollector() {
-        window.keenWebAutoCollector.domReady() ? window.createKeenWebAutoCollector() : document.addEventListener("readystatechange", function() {
-          window.keenWebAutoCollector.domReady() && window.createKeenWebAutoCollector()
-        })
-      }
-      window.keenWebAutoCollector = {
-        onloadCallbacks: [],
-        onload: function(a) {
-          this.onloadCallbacks.push(a)
-        },
-        domReady: function() {
-          return ["ready", "complete"].indexOf(document.readyState) > -1
-        }
-      };
-    </script>
-    <script async type="text/javascript" src="https://d26b395fwzu5fz.cloudfront.net/keen-web-autocollector-1.0.8.min.js" onload="initKeenWebAutoCollector()"></script>
   </head>
 
   <body>
@@ -100,8 +71,8 @@ if ($presentationId !== "") {
       <a href="https://<?php echo (urlencode($_SERVER['SERVER_NAME']));?>">
         <div id="return_link">Return to list of presentations</div>
       </a>
-<?php if ($presentationExists): ?>
-<?php
+      <?php if ($presentationExists): ?>
+        <?php
 $slides = $presentation->getSlides();
 $last_unique_title = "";
 $bookmarks = [];
@@ -141,10 +112,10 @@ foreach ($slides as $slide) {
         <h1><?php echo htmlspecialchars($presentation->title);?></h1>
     </div>
     <ul id="bookmark_list">
-        <?php foreach ($bookmarks as $bookmark): ?>
+      <?php foreach ($bookmarks as $bookmark): ?>
         <li>
           <a href="#" id="<?php echo urlencode($bookmark[1]);?>">
-            <?php echo htmlspecialchars($bookmark[0]);?>
+            <?php echo htmlspecialchars(preg_replace('/[\x00-\x1F\x7F]/u', '',$bookmark[0]));?>
           </a>
         </li>
         <?php endforeach;?>
@@ -160,48 +131,50 @@ foreach ($slides as $slide) {
         if (e.target !== e.currentTarget && e.target.id) {
           var clickedItem = e.target.id;
           console.log(clickedItem);
-          document.getElementById("slide_frame").src = "https://docs.google.com/presentation/d/<?php echo urlencode($presentationId);?>/embed?start=false&loop=false&delayms=3000&slide=id." + clickedItem;
+          document.getElementById("slide_frame").contentWindow.location.replace("https://docs.google.com/presentation/d/<?php echo urlencode($presentationId);?>/embed?start=false&loop=false&delayms=3000&slide=id." + clickedItem);
         }
         e.stopPropagation();
       }
       // Find all iframes
-      var $iframes = $("iframe");
-
+      var $iframe = $("#slide_frame");
       // Find &#x26; save the aspect ratio for all iframes
-      $iframes.each(function() {
-        $(this).data("ratio", 9 / 16)
-          // Remove the hardcoded width &#x26; height attributes
-          .removeAttr("width")
-          .removeAttr("height");
-      });
+      $iframe.data("ratio", 9 / 16)
+        // Remove the hardcoded width &#x26; height attributes
+        .removeAttr("width")
+        .removeAttr("height");
 
       function resizeIframe() {
-        $iframes.each(function() {
-          if ($(window).width() > 3 * ($("#bookmark_list").width())) {
-            var width = $(window).width() - 1.4 * $("#bookmark_list").width();
-            if (width * $(this).data("ratio") > 0.94 * ($(window).innerHeight() - $("#header").height())) {
-              width = 0.95 * (($(window).innerHeight() - $("#header").height()) / $(this).data("ratio"));
-            }
-            $(this).parent().width(width).height(width * $(this).data("ratio"));
-            $(this).parent().css("position", "fixed");
-            $(this).parent().css("padding-top", "7em");
-          } else {
-            var width = 0.98 * $(window).width();
-            $(this).parent().width(width).height(width * $(this).data("ratio"));
-            $(this).parent().css("position", "relative");
-            $(this).parent().css("padding-top", "0");
+        if ($(window).width() > 3 * ($("#bookmark_list").width())) {
+          var width = $(window).width() - 1.4 * $("#bookmark_list").width();
+          if (width * $iframe.data("ratio") > 0.94 * ($(window).innerHeight() - $("#header").height())) {
+            width = 0.95 * (($(window).innerHeight() - $("#header").height()) / $iframe.data("ratio"));
           }
-        });
-        // Resize to fix all iframes on page load.
+          $iframe.parent().width(width).height(width * $iframe.data("ratio"));
+          $iframe.parent().css("position", "fixed");
+          $iframe.parent().css("padding-top", "7em");
+        } else {
+          var width = 0.98 * $(window).width();
+          $iframe.parent().width(width).height(width * $iframe.data("ratio"));
+          $iframe.parent().css("position", "relative");
+          $iframe.parent().css("padding-top", "0");
+        }
       }
       resizeIframe();
+      var $last_header_height = 0;
+      function makeMobileFriendly() {
+        if ($("#header").height() !== $last_header_height) {
+          $("#bookmark_list").css("padding-top", $("#header").height());
+          $last_header_height = $("#header").height();
+        }
+      }
+      makeMobileFriendly();
       // Resize the iframes when the window is resized
-      $(window).resize(resizeIframe).resize();
+      $(window).resize(resizeIframe).resize(makeMobileFriendly).resize();
     </script>
-<?php else: ?>
+    <?php else: ?>
       <h3>Invalid presentationId</h3>
       </div>
-<?php endif;?>
+      <?php endif;?>
   </body>
 
   </html>
