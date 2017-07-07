@@ -8,18 +8,8 @@ $router = new AltoRouter();
 
 // map homepage
 $router->map( 'GET', '/', function() {
-    include __DIR__.'/views/account.php';
-}, 'home');
-
-// map cse247 filler page
-$router->map( 'GET', '/cse247', function() {
     include __DIR__.'/views/list_slides.php';
-}, 'cse247');
-
-// map account page helper
-$router->map( 'GET', '/account_helper', function() {
-    include __DIR__.'/views/account_helper.php';
-}, 'account_helper');
+}, 'home');
 
 // map oauth3 callback
 $router->map( 'GET', '/oauth2callback', function() {
