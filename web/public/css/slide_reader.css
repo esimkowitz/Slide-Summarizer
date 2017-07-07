@@ -1,26 +1,106 @@
+/*
+TODO:   integrate the header into the new layout scheme
+        see https://codepen.io/JosephSilber/pen/HqgAz
+        for more info
+*/
+
+body {
+    overflow: hidden;
+}
+
 #bookmark_list {
     vertical-align: top;
-    display: inline-block;
+    display: flex;
+    flex-flow: column;
     margin-right: 20px;
-    padding-top: 6em;
+    /*     padding-top: 6em; */
     max-width: 20em;
 }
+
+#main {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-flow: row;
+    padding-top: 7em;
+}
+
+#bookmarks {
+    display: flex;
+    flex-flow: column;
+    order: 2;
+}
+
 #slide_frame {
     height: 100%;
     width: 100%;
 }
+
 #header {
     position: fixed;
-    width: 100%;
     top: 0;
-    z-index: 2;
+    z-index: 3;
     padding: 0.5em 0 0 0.5em;
     background: white;
-}
-#slide_frame_div {
-    position: fixed;
-    display: inline-block;
-    z-index: 1;
+    border-bottom: 2px solid black;
     width: 100%;
-    padding-top: 7em;
+}
+
+#slide_frame_div {
+    order: 3;
+}
+
+.aspect-ratio {
+    position: relative;
+    max-width: 100%;
+    height: auto;
+}
+
+.aspect-ratio>* {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 83vh;
+}
+
+.aspect-ratio-16-9 {
+    padding-top: 56.25% !important;
+}
+
+.body {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+}
+
+.sidebar {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 35vw;
+    min-width: 15em;
+    padding-bottom: 1em;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    width: 100%;
+    margin-right: 1em;
+}
+
+.box {
+    padding-bottom: 5px;
+}
+
+#sidebar_padding {
+    margin-bottom: 1em;
 }

@@ -4,3 +4,4 @@ slides.sublime-workspace
 service-account-credentials.json
 vendor/
 .env
+.eslintrc.json
