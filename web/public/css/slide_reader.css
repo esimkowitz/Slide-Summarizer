@@ -3,6 +3,7 @@
     display: inline-block;
     margin-right: 20px;
     padding-top: 6em;
+    max-width: 20em;
 }
 #slide_frame {
     height: 100%;

@@ -21,6 +21,11 @@ Make sure the Books API is enabled on this
 account as well, or the call will fail.
 ************************************************/
 
+// if ($credentials_file = checkServiceAccountCredentialsFile()) {
+//     // 	set the location manually
+//     $client->setAuthConfig($credentials_file);
+// }
+// else
 if (getenv('GOOGLE_APPLICATION_CREDENTIALS')) {
     // 	use the application default credentials
     $client->useApplicationDefaultCredentials();
