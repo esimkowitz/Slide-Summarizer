@@ -25,8 +25,8 @@
       </a>
       <h1>{{ title }}</h1>
     </div>
-    <div id="main" class="body">
-      <div class="sidebar_container">
+    <div class="body_container">
+      <div id="main" class="body">
         <div id="bookmarks" class="sidebar">
           <ul id="bookmark_list">
             <li v-for="bookmark in bookmarks" class="box">
@@ -35,10 +35,10 @@
             <div id="sidebar_padding"></div>
           </ul>
         </div>
-      </div>
-      <div id="slide_frame_div" class="content">
-        <div class="aspect-ratio aspect-ratio-16-9">
-          <iframe id="slide_frame" :src="'https://docs.google.com/presentation/d/<?php echo urlencode($presentationId);?>/embed?start=false&loop=false&delayms=3000&slide=id.' + pageId"></iframe>
+        <div id="slide_frame_div" class="content">
+          <div class="aspect-ratio aspect-ratio-16-9">
+            <iframe id="slide_frame" :src="'https://docs.google.com/presentation/d/<?php echo urlencode($presentationId);?>/embed?start=false&loop=false&delayms=3000&slide=id.' + pageId"></iframe>
+          </div>
         </div>
       </div>
     </div>

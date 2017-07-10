@@ -20,9 +20,11 @@ body {
 }
 
 #main {
+    display: flex;
     justify-content: space-around;
     align-items: stretch;
-    /*     padding-top: 7em; */
+    flex-flow: row;
+    padding-top: 7em;
     order: 1;
 }
 
@@ -38,8 +40,6 @@ body {
 }
 
 #header {
-    display: flex;
-    flex-flow: column;
     order: 0;
     padding: 0.5em 0 0 0.5em;
     background: white;
@@ -71,6 +71,7 @@ body {
 }
 
 .body {
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
@@ -78,15 +79,16 @@ body {
     display: flex;
 }
 
+.body_container {
+    position: relative;
+}
+
 .sidebar {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 35vw;
     min-width: 15em;
     padding-bottom: 1em;
-}
-.sidebar_container {
-    position: absolute;
 }
 
 .main {
