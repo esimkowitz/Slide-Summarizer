@@ -19,6 +19,12 @@ body {
     width: 100%;
 }
 
+#header h1 {
+    font-size: 2em;
+    margin: 0.05em 0 0.15em 0;
+}
+
+
 /*  
     All properties below this point have to do with parts of the 
     page below the header.
@@ -41,6 +47,7 @@ body {
     position: relative;
     height: 100%;
 }
+
 
 /* These properties have to do with the scrolling sidebar. */
 
@@ -73,6 +80,7 @@ body {
 #sidebar_padding {
     margin-bottom: 1em;
 }
+
 
 /* These properties have to do with the Google Slides iframe. */
 
