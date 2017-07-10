@@ -26,7 +26,7 @@
       <h1>{{ title }}</h1>
     </div>
     <div class="body_container">
-      <div id="main" class="body">
+      <div class="body">
         <div id="bookmarks" class="sidebar">
           <ul id="bookmark_list">
             <li v-for="bookmark in bookmarks" class="box">

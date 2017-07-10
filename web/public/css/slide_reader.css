@@ -1,42 +1,14 @@
-/*
-TODO:   integrate the header into the new layout scheme
-        see https://codepen.io/JosephSilber/pen/HqgAz
-        for more info
-*/
-
 body {
     overflow: hidden;
-    display: flex;
-    flex-flow: column;
+    padding: 0;
+    margin: 0;
 }
 
-#bookmark_list {
-    vertical-align: top;
+#app {
     display: flex;
-    flex-flow: column;
-    margin-right: 20px;
-    /*     padding-top: 6em; */
-    max-width: 20em;
-}
-
-#main {
-    display: flex;
-    justify-content: space-around;
-    align-items: stretch;
-    flex-flow: row;
-    padding-top: 7em;
-    order: 1;
-}
-
-#bookmarks {
-    display: flex;
-    flex-flow: column;
-    order: 2;
-}
-
-#slide_frame {
-    height: 100%;
-    width: 100%;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
 }
 
 #header {
@@ -47,8 +19,75 @@ body {
     width: 100%;
 }
 
+/*  
+    All properties below this point have to do with parts of the 
+    page below the header.
+*/
+
+.body {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-direction: row;
+    order: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.body_container {
+    position: relative;
+    height: 100%;
+}
+
+/* These properties have to do with the scrolling sidebar. */
+
+.sidebar {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 35vw;
+    min-width: 15em;
+    padding-bottom: 1em;
+}
+
+.box {
+    padding-bottom: 5px;
+}
+
+#bookmark_list {
+    vertical-align: top;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    max-width: 20em;
+}
+
+#bookmarks {
+    display: flex;
+    flex-direction: column;
+    order: 2;
+}
+
+#sidebar_padding {
+    margin-bottom: 1em;
+}
+
+/* These properties have to do with the Google Slides iframe. */
+
+.content {
+    width: 100%;
+    margin-right: 1em;
+}
+
 #slide_frame_div {
     order: 3;
+}
+
+#slide_frame {
+    height: 100%;
+    width: 100%;
 }
 
 .aspect-ratio {
@@ -68,44 +107,4 @@ body {
 
 .aspect-ratio-16-9 {
     padding-top: 56.25% !important;
-}
-
-.body {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-}
-
-.body_container {
-    position: relative;
-}
-
-.sidebar {
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 35vw;
-    min-width: 15em;
-    padding-bottom: 1em;
-}
-
-.main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.content {
-    width: 100%;
-    margin-right: 1em;
-}
-
-.box {
-    padding-bottom: 5px;
-}
-
-#sidebar_padding {
-    margin-bottom: 1em;
 }
