@@ -14,7 +14,11 @@
   <link rel="stylesheet" href="https://<?php echo(urlencode($_SERVER['SERVER_NAME']));?>/slide_reader.css">
   <link rel="shortcut icon" type="image/x-icon" href="https://<?php echo(urlencode($_SERVER['SERVER_NAME']));?>/favicon.ico" />
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src=" https://<?php echo(urlencode($_SERVER[ 'SERVER_NAME']));?>/vue.js"></script>
+  <?php if ($_ENV["BRANCH"] === "development"): ?>
+  <script src="https://<?php echo(urlencode($_SERVER[ 'SERVER_NAME']));?>/vue.js"></script>
+  <?php else: ?>
+  <script src="https://unpkg.com/vue"></script>
+  <?php endif; ?>
 </head>
 
 <body>
@@ -25,18 +29,20 @@
       </a>
       <h1>{{ title }}</h1>
     </div>
-    <div id="main" class="body">
-      <div id="bookmarks" class="sidebar">
-        <ul id="bookmark_list">
-          <li v-for="bookmark in bookmarks" class="box">
-            <a href="#" :id="bookmark[1]" @click.prevent="pageId = bookmark[1]">{{ bookmark[0] }}</a>
-          </li>
-          <div id="sidebar_padding"></div>
-        </ul>
-      </div>
-      <div id="slide_frame_div" class="content">
-        <div class="aspect-ratio aspect-ratio-16-9">
-          <iframe id="slide_frame" :src="'https://docs.google.com/presentation/d/<?php echo urlencode($presentationId);?>/embed?start=false&loop=false&delayms=3000&slide=id.' + pageId"></iframe>
+    <div class="body_container">
+      <div class="body">
+        <div id="bookmarks" class="sidebar">
+          <ul id="bookmark_list">
+            <li v-for="bookmark in bookmarks" class="box">
+              <a href="#" :id="bookmark[1]" @click.prevent="pageId = bookmark[1]">{{ bookmark[0] }}</a>
+            </li>
+            <div id="sidebar_padding"></div>
+          </ul>
+        </div>
+        <div id="slide_frame_div" class="content">
+          <div class="aspect-ratio aspect-ratio-16-9">
+            <iframe id="slide_frame" :src="'https://docs.google.com/presentation/d/<?php echo urlencode($presentationId);?>/embed?start=false&loop=false&delayms=3000&slide=id.' + pageId"></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -63,7 +69,7 @@
           });
       }
     });
-    </script>
+  </script>
 </body>
 
 </html>
