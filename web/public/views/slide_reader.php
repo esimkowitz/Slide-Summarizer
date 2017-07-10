@@ -26,13 +26,15 @@
       <h1>{{ title }}</h1>
     </div>
     <div id="main" class="body">
-      <div id="bookmarks" class="sidebar">
-        <ul id="bookmark_list">
-          <li v-for="bookmark in bookmarks" class="box">
-            <a href="#" :id="bookmark[1]" @click.prevent="pageId = bookmark[1]">{{ bookmark[0] }}</a>
-          </li>
-          <div id="sidebar_padding"></div>
-        </ul>
+      <div class="sidebar_container">
+        <div id="bookmarks" class="sidebar">
+          <ul id="bookmark_list">
+            <li v-for="bookmark in bookmarks" class="box">
+              <a href="#" :id="bookmark[1]" @click.prevent="pageId = bookmark[1]">{{ bookmark[0] }}</a>
+            </li>
+            <div id="sidebar_padding"></div>
+          </ul>
+        </div>
       </div>
       <div id="slide_frame_div" class="content">
         <div class="aspect-ratio aspect-ratio-16-9">
