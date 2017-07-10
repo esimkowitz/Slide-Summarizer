@@ -24,7 +24,7 @@
 <body>
   <div id="app">
     <div id="header">
-      <a href="https://<?php echo (urlencode($_SERVER['SERVER_NAME']));?>/">
+      <a href="https://<?php echo (urlencode($_SERVER['SERVER_NAME']));?>/cse247">
         <div id="return_link">Return to list of presentations</div>
       </a>
       <h1>{{ title }}</h1>
