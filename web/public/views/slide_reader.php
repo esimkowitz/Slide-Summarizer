@@ -14,7 +14,11 @@
   <link rel="stylesheet" href="https://<?php echo(urlencode($_SERVER['SERVER_NAME']));?>/slide_reader.css">
   <link rel="shortcut icon" type="image/x-icon" href="https://<?php echo(urlencode($_SERVER['SERVER_NAME']));?>/favicon.ico" />
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src=" https://<?php echo(urlencode($_SERVER[ 'SERVER_NAME']));?>/vue.js"></script>
+  <?php if ($_ENV["BRANCH"] === "production"): ?>
+  <script src="https://unpkg.com/vue"></script>
+  <?php elseif ($_EMV["BRANCH"] === "development"): ?>
+  <script src="https://<?php echo(urlencode($_SERVER[ 'SERVER_NAME']));?>/vue.js"></script>
+  <?php endif; ?>
 </head>
 
 <body>
