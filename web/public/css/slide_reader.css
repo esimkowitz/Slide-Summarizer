@@ -6,6 +6,8 @@ TODO:   integrate the header into the new layout scheme
 
 body {
     overflow: hidden;
+    display: flex;
+    flex-flow: column;
 }
 
 #bookmark_list {
@@ -23,6 +25,7 @@ body {
     align-items: stretch;
     flex-flow: row;
     padding-top: 7em;
+    order: 1;
 }
 
 #bookmarks {
@@ -37,9 +40,7 @@ body {
 }
 
 #header {
-    position: fixed;
-    top: 0;
-    z-index: 3;
+    order: 0;
     padding: 0.5em 0 0 0.5em;
     background: white;
     border-bottom: 2px solid black;
