@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .? web/routing.php [L]
+
+# Change to "production" before release
+SetEnv BRANCH "development"
