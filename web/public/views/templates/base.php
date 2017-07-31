@@ -142,13 +142,13 @@ function setApiKey($apiKey)
 *
 * To setup Travis to run on your fork, read TRAVIS.md.
 */
-putenv('GOOGLE_APPLICATION_CREDENTIALS='. __DIR__.'/../../../../service-account-credentials.json');
+putenv('GOOGLE_APPLICATION_CREDENTIALS='. __DIR__.'/../../../../credentials/service-account-credentials.json');
 $cred = getenv('GOOGLE_CREDENTIALS_BASE64');
 $fpath = getenv('GOOGLE_APPLICATION_CREDENTIALS');
 if ($cred !== false && $fpath !== false) {
     file_put_contents($fpath, base64_decode($cred));
 }
-putenv('GOOGLE_CLIENT_CREDENTIALS='. __DIR__.'/../../../../oauth-credentials.json');
+putenv('GOOGLE_CLIENT_CREDENTIALS='. __DIR__.'/../../../../credentials/oauth-credentials.json');
 $cred = getenv('GOOGLE_CLIENT_CREDENTIALS_BASE64');
 $fpath = getenv('GOOGLE_CLIENT_CREDENTIALS');
 if ($cred !== false && $fpath !== false) {
