@@ -14,7 +14,7 @@ else {
     echo missingServiceAccountDetailsWarning();
     return;
 }
-$client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/oauth2callback');
+$client->setRedirectUri(url() . '/oauth2callback');
 $client->addScope(Google_Service_Drive::DRIVE_READONLY);
 
 if (! isset($_GET['code'])) {
@@ -23,6 +23,6 @@ if (! isset($_GET['code'])) {
 } else {
     $client->authenticate($_GET['code']);
     $_SESSION['access_token'] = $client->getAccessToken();
-    $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] . '/';
+    $redirect_uri = url();
     header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }

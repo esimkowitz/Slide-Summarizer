@@ -8,12 +8,17 @@ $basePath = '/~esimk/Slide-Summarizer';
 $router->setBasePath($basePath);
 $_SERVER['BASE_PATH'] = $basePath;
 
-// map homepage
+// map login
 $router->map( 'GET', '/', function() {
+    include __DIR__.'/public/views/login.php';
+}, 'login');
+
+// map homepage
+$router->map( 'GET', '/cse247', function() {
     include __DIR__.'/public/views/list_slides.php';
 }, 'home');
 
-// map oauth3 callback
+// map oauth2 callback
 $router->map( 'GET', '/oauth2callback', function() {
     include __DIR__.'/public/views/oauth2callback.php';
 }, 'oauth2callback');

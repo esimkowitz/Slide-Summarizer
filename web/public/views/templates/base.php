@@ -102,7 +102,7 @@ function missingOAuth2CredentialsWarning()
 function checkServiceAccountCredentialsFile()
 {
     // service account creds
-    $application_creds = __DIR__ . '/../../../../service-account-credentials.json';
+    $application_creds = __DIR__ . '/../../../../credentials/service-account-credentials.json';
     
     return file_exists($application_creds) ? $application_creds : false;
 }
@@ -110,7 +110,7 @@ function checkServiceAccountCredentialsFile()
 function getOAuthCredentialsFile()
 {
     // oauth2 creds
-    $oauth_creds = __DIR__ . '/../../../../oauth-credentials.json';
+    $oauth_creds = __DIR__ . '/../../../../credentials/oauth-credentials.json';
     
     if (file_exists($oauth_creds)) {
         return $oauth_creds;
