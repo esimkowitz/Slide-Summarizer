@@ -2,6 +2,7 @@ client_secret2.json
 slides.sublime-project
 slides.sublime-workspace
 service-account-credentials.json
+service-account-credentials-b64.txt
 vendor/
 .env
 .vscode/
