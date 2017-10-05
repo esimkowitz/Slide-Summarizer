@@ -158,7 +158,7 @@ if ($cred !== false && $fpath !== false) {
 function url(){
     return sprintf(
     '%s://%s%s',
-    (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http',
+    ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (getenv("deploy") === "heroku")) ? 'https' : 'http',
     ($_SERVER['SERVER_NAME']),
     ($_SERVER['BASE_PATH'])
     );
