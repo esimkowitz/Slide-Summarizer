@@ -4,9 +4,11 @@ require_once __DIR__.'/../vendor/autoload.php';
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 $router = new AltoRouter();
+$basePath = '';
+// For local deploy, uncomment line below
 // $basePath = '/~esimk/Slide-Summarizer';
-// $router->setBasePath($basePath);
-// $_SERVER['BASE_PATH'] = $basePath;
+$router->setBasePath($basePath);
+$_SERVER['BASE_PATH'] = $basePath;
 
 // map homepage
 $router->map( 'GET', '/', function() {
